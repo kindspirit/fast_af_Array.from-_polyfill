@@ -1,4 +1,4 @@
-Array.from(robust).min.js is the more robust version that much more closely mimics ES6's Array.from() in old browsers including Internet Explorer 6-8 while still having the added speed gain in modern browsers. With this version Array.from(mySet) works in IE11 without polyfilling iterables by testing if the value is a Set and then returning the set's values as an array. Anything else that has a forEach() method produces an array of tuples.
+Array.from(robust).min.js is the more robust version that much more closely mimics ES6's Array.from() in old browsers including Internet Explorer 6-8 while still having the added speed gain in modern browsers. With this version Array.from(mySet) works in IE11 without polyfilling iterables by testing if the value is constructed with `new Set()` and then returning the set's values as an array. Anything else that has a forEach() method produces an array of tuples as would an iterable with an entries() method.
 
 
 # fast_af_polyfill
