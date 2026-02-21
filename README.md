@@ -4,11 +4,12 @@ In order for Pre-ES6 environments to test if a value containing a forEach() meth
 
 This polyfill also works with ES6+ iterables by checking for and calling the `[Symbol.iterator]()` method which if available is what is used rather than any forEach() method. It is designed to be a drop-in faster running replacement for ES6's `Array.from()` in modern browsers, and a polyfill in old browsers. Since this version checks for a forEach() method, it also works on old data structure libraries like collectionsjs that came out pre-2015.
 
-This polyfill does three things that are over and above other polyfills (perhaps overkill)
+This polyfill does multiple things that are over and above other polyfills (perhaps overkill)
 
 1) Tests for non-constructor values of `this` (without first attempting to construct a `new this`) so that as per the spec an Array can be constructed instead.
-2) Tests for array-like objects that are always iterable in modern browsers (Arguments, HTMLCollection, NodeList, FileList, Array, TypedArray) since as per the spec Array.from() treats iterables differently from non-iterables.
-3) Tests for error writing to read-only property and throws a TypeError as per the spec. Needed where strict mode is lacking which includes all versions of Internet Explorer.
+2) Tests for array-like objects that are always iterable in modern browsers (Arguments, HTMLCollection, NodeList, FileList, Array, TypedArray, String) since as per the spec Array.from() treats iterables differently from non-iterables.
+3) Tests for and properly handles strings containing emojis and other extended unicode characters.
+4) Tests for error writing to read-only property and throws a TypeError as per the spec. Needed where strict mode is lacking which includes all versions of Internet Explorer.
 
 `Array.of()` is also polyfilled in this version since that requires very little additional code.
 
