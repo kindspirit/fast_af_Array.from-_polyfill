@@ -7,8 +7,8 @@ This polyfill also works with ES6+ iterables by checking for and calling the `[S
 This polyfill does three things that are over and above other polyfills (perhaps overkill)
 
 1) Tests for non-constructor values of `this` so that as per the spec an Array can be constructed instead.
-2) Tests for array-like objects that would have been iterable if this were ES6 since as per the spec Array.from() treats iterables differently from non-iterables.
-3) Tests for error writing to read-only property and throw a TypeError as per the spec. Needed where strict mode is lacking which includes all versions of Internet Explorer.
+2) Tests for array-like objects that are always iterable in modern browsers (Arguments, HTMLCollection, NodeList, FileList) since as per the spec Array.from() treats iterables differently from non-iterables.
+3) Tests for error writing to read-only property and throws a TypeError as per the spec. Needed where strict mode is lacking which includes all versions of Internet Explorer.
 
 `Array.of()` is also polyfilled in this version since that requires very little additional code.
 
