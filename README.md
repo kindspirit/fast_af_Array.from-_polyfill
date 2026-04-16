@@ -1,10 +1,8 @@
 Array.from(robust).min.js is the more robust Array.from() polyfill that much more closely mimics ES6's Array.from() in old browsers including Internet Explorer 6-11 while still having the added speed gain in modern browsers. With this version `Array.from(mySet)` works in IE11 without polyfilling iterables by testing if the value is a Set and iterating via forEach() then returning the set's values as an array. Anything else that's neither array-like nor iterable and has a forEach() method produces an array of key-value tuples as if it were called with `Array.from(myIterable.entries())`.
 
-In order for Pre-ES6 environments to test if a value containing a forEach() method is a `Set`, either `Object.prototype.toString.call(mySet)` must return `"[object Set]"` (ES6+ behavior) or `mySet instanceof Set` must return true. In order for the `instanceof` check to work across global environments, `eval()` must be permitted or an `EvalError` will be thrown but only if `myObj` has a .add property, does not have a `[Symbol.iterator]()` method, and was created via a foreign global environment's constructor. In other words, it's safe to forbid `eval()` in ES6+ environments always and in ES5 environments that don't cross paths with other frames or windows.
+This polyfill also works with ES6+ iterables by checking for and calling the `[Symbol.iterator]()` method which if available is what is used rather than any forEach() method. It also works with Symbol.iterator shams, but it is designed to be a drop-in faster running replacement for ES6's `Array.from()` in modern browsers, and a polyfill in old browsers. Since this version checks for a forEach() method, it also works on old data structure libraries like collectionsjs that came out pre-2015.
 
-This polyfill also works with ES6+ iterables by checking for and calling the `[Symbol.iterator]()` method which if available is what is used rather than any forEach() method. It is designed to be a drop-in faster running replacement for ES6's `Array.from()` in modern browsers, and a polyfill in old browsers. Since this version checks for a forEach() method, it also works on old data structure libraries like collectionsjs that came out pre-2015.
-
-This polyfill does multiple things that are over and above other polyfills (perhaps overkill)
+This polyfill made by me without any AI tools does multiple things that are over and above other polyfills (perhaps overkill)
 
 1) Tests for non-constructor values of `this` (without first attempting to construct a `new this`) so that as per the spec an Array can be constructed instead.
 2) Tests for array-like objects that are always iterable in modern browsers (Arguments, HTMLCollection, NodeList, FileList, Array, TypedArray, String) since as per the spec, Array.from() constructs with a length argument only if array-like object is non-iterable.
@@ -13,6 +11,7 @@ This polyfill does multiple things that are over and above other polyfills (perh
 
 `Array.of()` is also polyfilled in this version since that requires very little additional code.
 
+Caveat: In order for Pre-ES6 environments to test if a value containing a forEach() method is a `Set`, `mySet instanceof Set` must return true. But that test is also done across global environments, and for that `eval()` must be permitted or an `EvalError` will be thrown but only if `myObj` has a .add property, does not have a `[Symbol.iterator]()` method, and was created via a foreign global environment's constructor. In other words, it's always safe to forbid `eval()` in environments that support `[Symbol.iterator]()` but in ES5 environments forbidding `eval()` will cause it to throw if the value passed to `Array.from()` contains both a `forEach()` method and an `add()` method and was created in a different frame or window. That's due to `Function('return this')()` being called to get the Set() constructor from the foreign global environment.
 
 
 # fast_af_polyfill
