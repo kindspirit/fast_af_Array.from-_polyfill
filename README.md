@@ -6,8 +6,9 @@ This polyfill made by me without any AI tools does multiple things that are over
 
 1) Tests for non-constructor values of `this` so that as per the spec an Array can be constructed instead if `this` value is not a constructor.
 2) Tests for array-like objects that are always iterable in modern browsers (Arguments, HTMLCollection, NodeList, FileList, Array, TypedArray, String, SELECT and FORM elements). As per the spec, Array.from() constructs with a length argument only if array-like object is non-iterable.
-3) Tests for and properly handles strings containing emojis and other extended unicode characters so that strings split at the character level, not at the code-point level.
-4) Tests for read-only length property on return object and throws a TypeError as per the spec. Needed where strict mode is lacking which includes all versions of Internet Explorer.
+3) Works also in non-browser environments.
+4) Tests for and properly handles strings containing emojis and other extended unicode characters so that strings split at the character level, not at the code-point level.
+5) Tests for read-only length property on return object and throws a TypeError as per the spec. Needed where strict mode is lacking which includes all versions of Internet Explorer.
 
 `Array.of()` is also polyfilled in this version since that requires very little additional code.
 
