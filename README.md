@@ -4,11 +4,13 @@ This polyfill also works with ES6+ iterables by checking for and calling the `[S
 
 This polyfill was made by me without any AI tools. It does multiple things that are over and above other polyfills (perhaps overkill) and supports very old browsers as far back as Internet Explorer 6.
 
-1) Tests for non-constructor values of `this` so that as per the spec an Array can be constructed instead if `this` value is not a constructor.
-2) Tests for array-like objects that are always iterable in modern browsers (Arguments, HTMLCollection, NodeList, FileList, Array, TypedArray, String, SELECT and FORM elements). As per the spec, Array.from() constructs with a length argument only if array-like object is non-iterable.
-3) Works also in non-browser environments.
-4) Tests for and properly handles strings containing emojis and other extended unicode characters so that strings split at the character level, not at the code-point level.
-5) Tests for read-only length property on return object and throws a TypeError as per the spec. Needed where strict mode is lacking which includes all versions of Internet Explorer.
+1) Works on iterables like `Set` and `Map` as long as they have a `forEach()` method. Required only in pre-ES6 environments where `Symbol.iterator` is not polyfilled.
+2) Tests for non-constructor values of `this` so that as per the spec an Array can be constructed when `this` value is not a constructor.
+3) Tests for array-like objects that are always iterable in modern browsers (Arguments, HTMLCollection, NodeList, FileList, Array, TypedArray, String, SELECT and FORM elements). As per the spec, Array.from() constructs with a length argument only if array-like object is non-iterable.
+4) Works also in non-browser environments.
+5) Tests for and properly handles strings containing emojis and other extended unicode characters so that strings split at the character level, not at the code-point level.
+6) Tests for read-only length property on return object and throws a TypeError as per the spec. Needed where strict mode is lacking which includes all versions of Internet Explorer.
+7) Optimized to be faster than native `Array.from()` and works in both modern environments and as a polyfill in old browsers.
 
 `Array.of()` is also polyfilled in this version since that requires very little additional code.
 
