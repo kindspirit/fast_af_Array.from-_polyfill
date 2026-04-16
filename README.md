@@ -2,7 +2,7 @@ Array.from(robust).min.js is the more robust Array.from() polyfill that much mor
 
 This polyfill also works with ES6+ iterables by checking for and calling the `[Symbol.iterator]()` method which if available is what is used rather than any forEach() method. It also works with Symbol.iterator shams, but it is designed to be a drop-in faster running replacement for ES6's `Array.from()` in modern browsers, and a polyfill in old browsers. Since this version checks for a forEach() method, it also works on old data structure libraries like collectionsjs that came out pre-2015.
 
-This polyfill made by me without any AI tools does multiple things that are over and above other polyfills (perhaps overkill)
+This polyfill was made by me without any AI tools. It does multiple things that are over and above other polyfills (perhaps overkill) and supports very old browsers as far back as Internet Explorer 6.
 
 1) Tests for non-constructor values of `this` so that as per the spec an Array can be constructed instead if `this` value is not a constructor.
 2) Tests for array-like objects that are always iterable in modern browsers (Arguments, HTMLCollection, NodeList, FileList, Array, TypedArray, String, SELECT and FORM elements). As per the spec, Array.from() constructs with a length argument only if array-like object is non-iterable.
